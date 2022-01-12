@@ -18,6 +18,19 @@ CREATE TABLE events (
 	booking_date_from DATETIME,
 	booking_date_to DATETIME,
 	other_details VARCHAR(255)
-)
+);
 
-create table customers ()
+create table customers_data_platforms (
+	platform_id CHAR(20),
+	customer_name VARCHAR(255),
+	plarform_details VARCHAR(255)
+);
+
+create table customers (
+	customer_id SERIAL PRIMARY KEY,
+	customer_name VARCHAR(255),
+	title CHAR(20),
+	gender CHAR(3),
+	important_details VARCHAR(255)
+);
+
