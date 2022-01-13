@@ -3,6 +3,67 @@ CREATE DATABASE logical_data_model;
 
 USE logical_data_model;
 
+-- source table
+
+CREATE TABLE customers_data_platforms (
+	platform_id CHAR(20),
+	customer_name VARCHAR(255),
+	plarform_details VARCHAR(255)
+);
+
+-- source table
+
+CREATE TABLE customers (
+	customer_id BIGINT UNSIGNED UNIQUE PRIMARY KEY,
+	customer_name VARCHAR(255),
+	title CHAR(20),
+	gender CHAR(3),
+	customers_details VARCHAR(255)
+);
+
+-- source table
+
+CREATE TABLE suppliers (
+	supplier_id BIGINT UNSIGNED UNIQUE,
+	supplier_name VARCHAR(255),
+	supplier_details VARCHAR(255)
+);
+
+-- source table
+
+CREATE TABLE products_and_services(
+	pr_sr_code CHAR(20),
+	suppliers_id BIGINT UNSIGNED,
+	pr_sr_name VARCHAR(255),
+	pr_sr_details VARCHAR(255)
+);
+
+-- source table
+
+CREATE TABLE channels(
+	channel_id BIGINT UNSIGNED UNIQUE PRIMARY KEY,
+	channel_name VARCHAR(255),
+	channel_details VARCHAR(255)
+);
+
+-- source table
+
+CREATE TABLE staff(
+	staff_id BIGINT UNSIGNED UNIQUE PRIMARY KEY,
+	staff_name VARCHAR(255),
+	staff_details VARCHAR(255)
+);
+
+-- secondary source table
+
+CREATE TABLE services(
+	service_code CHAR(20),
+	service_name VARCHAR(255),
+	other_details VARCHAR(255)
+);
+
+-- result table
+
 CREATE TABLE events (
 	event_id SERIAL PRIMARY KEY,
 	artefact_id BIGINT UNSIGNED,
@@ -20,41 +81,3 @@ CREATE TABLE events (
 	other_details VARCHAR(255)
 );
 
-CREATE TABLE customers_data_platforms (
-	platform_id CHAR(20),
-	customer_name VARCHAR(255),
-	plarform_details VARCHAR(255)
-);
-
-CREATE TABLE customers (
-	customer_id BIGINT UNSIGNED UNIQUE PRIMARY KEY,
-	customer_name VARCHAR(255),
-	title CHAR(20),
-	gender CHAR(3),
-	customers_details VARCHAR(255)
-);
-
-CREATE TABLE suppliers (
-	supplier_id BIGINT UNSIGNED UNIQUE PRIMARY KEY,
-	supplier_name VARCHAR(255),
-	supplier_details VARCHAR(255)
-);
-
-CREATE TABLE products_and_services(
-	pr_sr_code CHAR(20),
-	suppliers_id BIGINT UNSIGNED,
-	pr_sr_name VARCHAR(255),
-	pr_sr_details VARCHAR(255)
-);
-
-CREATE TABLE channels(
-	channel_id BIGINT UNIQUE UNSIGNED PRIMARY KEY,
-	channel_name VARCHAR(255),
-	channel_details VARCHAR(255)
-);
-
-CREATE TABLE staff(
-	staff_id BIGINT UNIQUE UNSIGNED PRIMARY KEY,
-	staff_name VARCHAR(255),
-	staff_details(255)
-);
