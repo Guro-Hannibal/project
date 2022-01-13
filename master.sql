@@ -20,17 +20,37 @@ CREATE TABLE events (
 	other_details VARCHAR(255)
 );
 
-create table customers_data_platforms (
+CREATE TABLE customers_data_platforms (
 	platform_id CHAR(20),
 	customer_name VARCHAR(255),
 	plarform_details VARCHAR(255)
 );
 
-create table customers (
-	customer_id SERIAL PRIMARY KEY,
+CREATE TABLE customers (
+	customer_id BIGINT UNSIGNED UNIQUE PRIMARY KEY,
 	customer_name VARCHAR(255),
 	title CHAR(20),
 	gender CHAR(3),
-	important_details VARCHAR(255)
+	customers_details VARCHAR(255)
 );
+
+CREATE TABLE suppliers (
+	supplier_id BIGINT UNSIGNED UNIQUE PRIMARY KEY,
+	supplier_name VARCHAR(255),
+	supplier_details VARCHAR(255)
+);
+
+CREATE TABLE products_and_services(
+	pr_sr_code CHAR(20),
+	suppliers_id BIGINT UNSIGNED,
+	pr_sr_name VARCHAR(255),
+	pr_sr_details VARCHAR(255)
+);
+
+CREATE TABLE channels(
+	channel_id BIGINT UNIQUE UNSIGNED PRIMARY KEY,
+	channel_name VARCHAR(255),
+	channel_details VARCHAR(255)
+);
+
 
