@@ -122,22 +122,29 @@ CREATE TABLE events (
 
 CREATE TABLE mess_and_data_app (
 	app_code BIGINT UNSIGNED UNIQUE PRIMARY KEY,
-	app_backup SET,
-	app_source_vars SET,
-	app_security_vars SET,
-	app_dialog SET,
+	app_backup_vars JSON,
+	app_source_vars JSON,
+	app_security_vars JSON,
+	app_dialog JSON,
 	data_clone LONGTEXT
+);
+
+-- information variables
+
+CREATE TABLE info_types(
+	info_type_code CHAR(15),
+	info_type_description VARCHAR(255),
+	info_type_priority_id INT UNSIGNED UNIQUE
 );
 
 -- auto analasing data
 
 CREATE TABLE info(
-	info_id UNSIGNED UNIQUE PRIMARY KEY,
+	info_id BIGINT UNSIGNED UNIQUE PRIMARY KEY,
 	event_id BIGINT,
 	priority_code INT UNSIGNED,
-	info_timeline SET,
-	info_loc_history SET,
+	info_timeline JSON,
+	info_loc_history JSON,
 	info_details VARCHAR(255)
 );
-
 
