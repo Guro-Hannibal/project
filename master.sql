@@ -62,6 +62,43 @@ CREATE TABLE services(
 	other_details VARCHAR(255)
 );
 
+-- secondary source table
+
+CREATE TABLE artefacts(
+	artefact_id BIGINT UNSIGNED UNIQUE PRIMARY KEY,
+	artefact_name VARCHAR(255),
+	artefact_details VARCHAR(255)
+);
+
+-- secondary source table
+
+CREATE TABLE locations (
+	location_id BIGINT UNSIGNED PRIMARY KEY,
+	location_name VARCHAR(255),
+	location_details VARCHAR(255)
+);
+
+-- secondary source table
+
+CREATE TABLE platforms(
+	platform_id CHAR(15),
+	platform_name VARCHAR(255),
+	platform_details VARCHAR(255),
+	acces_variables VARCHAR(255)
+);
+
+-- secondary source table
+
+CREATE TABLE event_sequences(
+	event_sequence_id BIGINT UNSIGNED UNIQUE,
+	next_event_sequence_id BIGINT UNSIGNED UNIQUE,
+	event_code CHAR(20),
+	event_time DATETIME,
+	event_details VARCHAR(255),
+	event_source_file TEXT,
+	event_source_variables VARCHAR(255)
+);
+
 -- result table
 
 CREATE TABLE events (
@@ -79,5 +116,16 @@ CREATE TABLE events (
 	booking_date_from DATETIME,
 	booking_date_to DATETIME,
 	other_details VARCHAR(255)
+);
+
+--
+
+CREATE TABLE mess_and_data_app (
+	app_code BIGINT UNSIGNED UNIQUE PRIMARY KEY,
+	app_backup SET,
+	app_source_vars SET,
+	app_security_vars SET,
+	app_dialog SET,
+	data_clone LONGTEXT
 );
 
