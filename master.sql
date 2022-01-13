@@ -53,4 +53,8 @@ CREATE TABLE channels(
 	channel_details VARCHAR(255)
 );
 
-
+CREATE TABLE staff(
+	staff_id BIGINT UNIQUE UNSIGNED PRIMARY KEY,
+	staff_name VARCHAR(255),
+	staff_details(255)
+);
