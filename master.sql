@@ -118,7 +118,7 @@ CREATE TABLE events (
 	other_details VARCHAR(255)
 );
 
---
+-- manual analazing data
 
 CREATE TABLE mess_and_data_app (
 	app_code BIGINT UNSIGNED UNIQUE PRIMARY KEY,
@@ -128,4 +128,16 @@ CREATE TABLE mess_and_data_app (
 	app_dialog SET,
 	data_clone LONGTEXT
 );
+
+-- auto analasing data
+
+CREATE TABLE info(
+	info_id UNSIGNED UNIQUE PRIMARY KEY,
+	event_id BIGINT,
+	priority_code INT UNSIGNED,
+	info_timeline SET,
+	info_loc_history SET,
+	info_details VARCHAR(255)
+);
+
 
