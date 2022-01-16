@@ -60,42 +60,34 @@ def get_rows(table_name, count):
     return tuple_result
 
 
-rows = get_rows('sys', get_tables_count('sys'))
+tables_rows = get_rows('sys', get_tables_count('sys'))
+
+platform_table = []
+customer_table = []
+supplier_table = []
+service_table = []
+location_table = []
+
+print('333333333333333')
 
 
 def distribute(rows):
-    push_row = []
     for row in rows:
-        service_row = row[0:3]
-        
-        for el in row[0:3]:
-            print(str(el) + '   abc', end='    ')
-            push_row.append(el)
-        print()
-        for item in row[3:6]:
-            print(str(item) + '   abc', end='    ')
-        print()
-        for item in row[6:9]:
-            print(str(item) + '   abc', end='    ')
-        print()
-        for item in row[9:12]:
-            print(str(item) + '   abc', end='    ')
-        print()
-        for item in row[12:15]:
-            print(str(item) + '   abc', end='    ')
-        print()
-        for item in row[15:18]:
-            print(str(item) + '   abc', end='    ')
-        print()
-    print(testr)
-    return push_row
+        platform_table.append(row[0:4])
+        customer_table.append(row[4:9])
+        supplier_table.append(row[9:12])
+        service_table.append(row[12:15])
+        location_table.append(row[15:])
+    return
 
 
-anything = distribute(rows)
+distribute(tables_rows)
 
-
-print(anything)
-
+print(platform_table)
+print(customer_table)
+print(supplier_table)
+print(service_table)
+print(location_table)
 
 
 
