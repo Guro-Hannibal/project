@@ -25,11 +25,10 @@ CREATE TABLE suppliers (
 	supplier_details VARCHAR(255)
 );
 
-CREATE TABLE services(
+CREATE TABLE services (
 	service_code BIGINT NOT NULL UNIQUE PRIMARY KEY,
-	supplier_id BIGINT UNSIGNED,
 	service_name VARCHAR(255),
-	services_details VARCHAR(255)
+	supplier_name VARCHAR(255)
 );
 
 CREATE TABLE suppliers_services_join(
