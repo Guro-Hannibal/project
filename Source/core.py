@@ -11,7 +11,7 @@ cur.execute('SELECT CURDATE()')
 
 row = cur.fetchone()
 
-print(f"Date - {row}")
+# print(f"Date - {row}")
 
 cur.execute('DESCRIBE sys;')
 row = cur.fetchall()
@@ -22,35 +22,43 @@ for el in row:
 get_tables_count('sys', cur)
 
 
-print(get_tables_count('sys', cur))
+# print(get_tables_count('sys', cur))
 
 
 tables_rows = get_rows('sys', cur, get_tables_count('sys', cur))
 
-platform_table = []
-customer_table = []
-supplier_table = []
-service_table = []
-location_table = []
+platforms_table = []
+customers_table = []
+suppliers_table = []
+services_table = []
+locations_table = []
 
 print('333333333333333')
 
 
-distribute(tables_rows, platform_table, customer_table, supplier_table, service_table, location_table)
+distribute(tables_rows, platforms_table, customers_table, suppliers_table, services_table, locations_table)
 
-print(platform_table)
-print(customer_table)
-print(supplier_table)
-print(service_table)
-print(location_table)
+print(platforms_table)
+# print(customers_table)
+# print(suppliers_table)
+# print(services_table)
+# print(locations_table)
 
-insert_into_table('platforms', platform_table, cur)
+cur.execute('USE friendship')
+
+insert_into_table('platforms', platforms_table, cur)
+connection.commit()
+# str_data = (
+#         "INSERT INTO platforms (platform_id, platform_name, platform_details, acces_variables) VALUES(%s, %s, %s, %s)"
+#     )
+# cur.executemany(str_data, platforms_table)
 
 
 
+print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
 
-
-
+cur.execute('SELECT * FROM platforms')
+print(cur.fetchall())
 connection.close()
 
 tunnel.close()
