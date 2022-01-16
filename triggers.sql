@@ -1,15 +1,14 @@
-DROP TRIGGER IF EXISTS service_trigger;
+DROP TRIGGER IF EXISTS services_trigger;
 
 DELIMITER $$
-CREATE TRIGGER suppliers_trigger 
+CREATE TRIGGER services_trigger 
 AFTER INSERT
-ON suppliers
+ON services
 FOR EACH ROW
 	BEGIN
-		INSERT
-	INTO
-	services
-VALUES (NEW.supplier_id);
-	END$$
+		INSERT INTO suppliers_services_join (service_code, supplier_id, service_name, suppliers_name)
+		VALUES (service_code, supplier_id, service_name, suppliers_name);
+	END
+	$$
 DELIMITER ;
 
