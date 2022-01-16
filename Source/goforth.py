@@ -54,25 +54,47 @@ print(get_tables_count('sys'))
 
 
 def get_rows(table_name, count):
-    i = 0
     cur.execute(f'SELECT * FROM {table_name}')
     tuple_result = cur.fetchall()
-    while i < count:
-        print(tuple_result[i])
-        i += 1
-    return
+    print(tuple_result)
+    return tuple_result
 
 
-get_rows('sys', get_tables_count('sys'))
-# cur.execute('USE logical_data_model;')
+rows = get_rows('sys', get_tables_count('sys'))
 
 
+def distribute(rows):
+    push_row = []
+    for row in rows:
+        service_row = row[0:3]
+        
+        for el in row[0:3]:
+            print(str(el) + '   abc', end='    ')
+            push_row.append(el)
+        print()
+        for item in row[3:6]:
+            print(str(item) + '   abc', end='    ')
+        print()
+        for item in row[6:9]:
+            print(str(item) + '   abc', end='    ')
+        print()
+        for item in row[9:12]:
+            print(str(item) + '   abc', end='    ')
+        print()
+        for item in row[12:15]:
+            print(str(item) + '   abc', end='    ')
+        print()
+        for item in row[15:18]:
+            print(str(item) + '   abc', end='    ')
+        print()
+    print(testr)
+    return push_row
 
 
+anything = distribute(rows)
 
 
-
-
+print(anything)
 
 
 
