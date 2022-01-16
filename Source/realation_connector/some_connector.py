@@ -23,7 +23,7 @@ def sql_connect():
 
 def sql_connect_error_catcher(foo):
     try:
-        relay, cur = sql_connect()
+        relay, cur = foo
         return relay, cur
     except Error:
         print(f'Ошибка -  {Error}')
