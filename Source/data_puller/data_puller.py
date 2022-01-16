@@ -1,4 +1,4 @@
-def get_tables_count(table_name, cursor):
+def get_rows_count(table_name, cursor):
     cursor.execute(f'SELECT COUNT(*) FROM {table_name}')
     tuple_result = cursor.fetchone()
     return int(tuple_result[0])
