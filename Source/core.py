@@ -1,6 +1,7 @@
 from realation_connector.some_connector import tunnel, sql_connect, sql_connect_error_catcher
 from data_puller.data_puller import get_rows, get_tables_count
 from data_distributor.data_distributor import distribute
+from data_pusher.data_pusher import insert_into_table
 
 tunnel.start()
 
@@ -43,7 +44,7 @@ print(supplier_table)
 print(service_table)
 print(location_table)
 
-
+insert_into_table('platforms', platform_table, cur)
 
 
 
