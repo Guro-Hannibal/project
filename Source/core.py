@@ -1,5 +1,5 @@
 from realation_connector.some_connector import tunnel, sql_connect, sql_connect_error_catcher
-from data_puller.data_puller import get_rows, get_rows_count
+from data_puller.data_puller import get_rows, get_rows_count, get_custom_rows
 from data_distributor.data_distributor import distribute
 from data_pusher.data_pusher import insert_into_table, insert_many_tables
 
@@ -46,9 +46,9 @@ cur.execute('USE friendship')
 # insert_into_table('platforms', cur, platforms_table)
 # connection.commit()
 
-insert_many_tables(cur, 5, platforms_table, customers_table, suppliers_table, services_table, locations_table,
-                   'platforms', 'customers', 'suppliers', 'services', 'locations')
-connection.commit()
+# insert_many_tables(cur, 5, platforms_table, customers_table, suppliers_table, services_table, locations_table,
+#                    'platforms', 'customers', 'suppliers', 'services', 'locations')
+# connection.commit()
 
 tables = []
 cur.execute('SELECT * FROM platforms')
@@ -63,6 +63,10 @@ cur.execute('SELECT * FROM locations')
 tables.append(cur.fetchall())
 for el in tables:
     print(el)
+
+
+custom_rows = get_custom_rows(cur, 'suppliers', 'supplier_name', 'fsdfds', 'fsdfsf')
+print(custom_rows)
 
 connection.close()
 tunnel.close()
