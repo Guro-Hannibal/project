@@ -1,14 +1,10 @@
-
-
-DROP TRIGGER IF EXISTS suppliers_trigger;
+DROP TRIGGER IF EXISTS service_trigger;
 
 DELIMITER $$
-CREATE 
-TRIGGER suppliers_trigger AFTER
-INSERT
-	ON
-	suppliers
-	FOR EACH ROW
+CREATE TRIGGER suppliers_trigger 
+AFTER INSERT
+ON suppliers
+FOR EACH ROW
 	BEGIN
 		INSERT
 	INTO
@@ -16,3 +12,4 @@ INSERT
 VALUES (NEW.supplier_id);
 	END$$
 DELIMITER ;
+
