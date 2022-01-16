@@ -25,9 +25,7 @@ def insert_into_table(table_name, cursor, data):
 
 
 def insert_many_tables(cursor, count, *args):
-    print('fdsssssssssssssssssssssssssssssssssssssssssssssssssssssssss')
-    print(args)
     for el in args[:count]:
         print(args[count])
         insert_into_table(args[count], cursor, el)
-        count+=1
+        count += 1
