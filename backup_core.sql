@@ -33,10 +33,10 @@ CREATE TABLE services (
 
 CREATE TABLE suppliers_services_join(
 	service_code BIGINT UNSIGNED NOT NULL PRIMARY KEY,
-	supplier_id BIGINT UNSIGNED,
-	suppliers_service_name VARCHAR(255) DEFAULT NULL,
-	suppliers_service_details VARCHAR(255) DEFAULT NULL,
-	FOREIGN KEY (supplier_id) REFERENCES suppliers(supplier_id) ON UPDATE CASCADE
+	supplier_id BIGINT UNSIGNED DEFAULT NULL,
+	service_name VARCHAR(255) DEFAULT NULL,
+	suppliers_name VARCHAR(255) DEFAULT NULL
+-- 	FOREIGN KEY (supplier_id) REFERENCES suppliers(supplier_id) ON UPDATE CASCADE
 );
 
 CREATE TABLE channels(
