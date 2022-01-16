@@ -29,11 +29,3 @@ def sql_connect_error_catcher(foo):
         print(f'Ошибка -  {Error}')
 
 
-
-# cur.execute('SELECT CURDATE()')
-#
-# row = cur.fetchone()
-#
-# print(f"Date - {row}")
-
-
