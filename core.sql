@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS logical_data_model;
-CREATE DATABASE logical_data_model;
+DROP DATABASE IF EXISTS friendship;
+CREATE DATABASE friendship;
 
-USE logical_data_model;
+USE friendship;
 
 
 CREATE TABLE customers_data_platforms (
@@ -26,13 +26,13 @@ CREATE TABLE suppliers (
 );
 
 CREATE TABLE services(
-	service_code CHAR(20) NOT NULL UNIQUE PRIMARY KEY,
+	service_code BIGINT NOT NULL UNIQUE PRIMARY KEY,
 	service_name VARCHAR(255),
 	services_details VARCHAR(255)
 );
 
 CREATE TABLE products_and_services(
-	service_code CHAR(20),
+	service_code BIGINT,
 	supplier_id BIGINT UNSIGNED NOT NULL,
 	pr_sr_name VARCHAR(255),
 	pr_sr_details VARCHAR(255),
@@ -45,7 +45,6 @@ CREATE TABLE channels(
 	channel_name VARCHAR(255),
 	channel_details VARCHAR(255)
 );
-
 
 CREATE TABLE staff(
 	staff_id BIGINT UNSIGNED NOT NULL UNIQUE PRIMARY KEY,
@@ -68,7 +67,7 @@ CREATE TABLE locations (
 );
 
 CREATE TABLE platforms(
-	platform_id CHAR(20) NOT NULL PRIMARY KEY,
+	platform_id BIGINT NOT NULL PRIMARY KEY,
 	platform_name VARCHAR(255),
 	platform_details VARCHAR(255),
 	acces_variables VARCHAR(255)
@@ -92,7 +91,7 @@ CREATE TABLE events (
 	event_sequence_id BIGINT UNSIGNED NOT NULL,
 	location_id	BIGINT UNSIGNED NOT NULL,
 	platform_id VARCHAR(20) NOT NULL,
-	service_code VARCHAR(20) NOT NULL,
+	service_code BIGINT NOT NULL,
 	staff_id BIGINT UNSIGNED NOT NULL,
 	event_amount BIGINT UNSIGNED NOT NULL,
 	event_date_time DATETIME,
