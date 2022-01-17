@@ -1,13 +1,11 @@
-DROP TRIGGER IF EXISTS services_trigger;
 
 DELIMITER $$
-CREATE TRIGGER services_trigger 
-BEFORE INSERT
-ON services
-FOR EACH ROW
-	BEGIN
-		INSERT INTO suppliers_services_join(service_code, service_name, supplier_name) 
-		SELECT service_code, service_name, supplier_name  FROM service ;
-	END
-	$$
+CREATE TRIGGER artefacts.trigger
+AFTER INSERT ON artefacts
+FOR EACH ROW 
+	BEGIN 
+		IF NEW.artefacts IS NOT NULL 
+			SET events.artefact_id = NEW.artefact_id;
+		END IF;
+	END;$$
 DELIMITER ;
