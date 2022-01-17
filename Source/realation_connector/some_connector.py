@@ -28,4 +28,3 @@ def sql_connect_error_catcher(foo):
     except Error:
         print(f'Ошибка -  {Error}')
 
-
