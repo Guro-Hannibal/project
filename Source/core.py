@@ -1,41 +1,49 @@
+from relation_connector import tunnel, sql_connect, sql_connect_error_catcher
+from data_puller import DataPuller
+from data_distributor import Distributor
+from data_pusher import DataPusher
 
-# from relation_connector.relation_connector import tunnel, sql_connect, sql_connect_error_catcher
-# from data_puller.data_puller import get_rows, get_rows_count, get_custom_rows, get_table_names, join_custom_rows, \
-#     union_custom_rows
-# from data_distributor.data_distributor import distribute
-# from data_pusher.data_pusher import insert_into_table, insert_many_tables, trigger_check, \
-#     supplier_trigger, service_trigger
-
-
-class Core:
-
-    def __init__(self, database_source, database_friendship):
-        self.database_source = database_source
-        self.database_friendship = database_friendship
-        self.connection, self.interface = sql_connect_error_catcher(sql_connect())
-        self.__pusher = Source.DataPusher
+tunnel.start()
 
 
-    def __import_puller(self):
-        pass
+relay, interface = sql_connect_error_catcher(sql_connect())
 
-    def __import_distribotor(self):
-        pass
+relay.commit()
 
 
+class __Core:
 
-core = Core('sys', 'friendship',)
+    def __init__(self, source_database, friendship_project, relay, interface):
+        self.source_database = source_database
+        self.friendship_project = friendship_project
+        self.interface = interface
+        self.relay = relay
+
+
+class __UI__ (DataPusher, DataPuller, Distributor):
+
+        def __init__(self, interface):
+            self.__interface = interface
+
+
+UserInterface = __UI__(interface)
 
 
 
 
-cur.execute('SELECT CURDATE()')
+# with open('core.sql', 'r') as data:
+#     with connection.cursor() as sql_runner:
+#         sql_runner.execute("DROP DATABASE IF EXISTS friendship")
+#         sql_runner.execute(data.read(), multi=True)
+#     connection.commit()
 
-row = cur.fetchone()
+interface.execute('SELECT CURDATE()')
+
+row = interface.fetchone()
 
 print(f"Date - {row}")
 
-row = get_table_names(cur)
+row = UserInterface.get_table_names(interface)
 print(row)
 
 
@@ -45,19 +53,18 @@ def foo():
 
 foo()
 
-
-cur.execute('DESCRIBE sys;')
-row = cur.fetchall()
+interface.execute('DESCRIBE sys;')
+row = interface.fetchall()
 for el in row:
     print(el)
 
 foo()
 
 
-print(get_rows_count('sys', cur))
+print(UserInterface.get_rows_count('sys', interface))
 
 
-tables_rows = get_rows('sys', cur, get_rows_count('sys', cur))
+tables_rows = UserInterface.get_rows('sys', interface, UserInterface.get_rows_count('sys', interface))
 
 platforms_table = []
 customers_table = []
@@ -65,7 +72,7 @@ suppliers_table = []
 services_table = []
 locations_table = []
 
-distribute(tables_rows, platforms_table, customers_table, suppliers_table, services_table, locations_table)
+UserInterface.distribute(tables_rows, platforms_table, customers_table, suppliers_table, services_table, locations_table)
 
 print(platforms_table)
 print(customers_table)
@@ -77,53 +84,56 @@ print(locations_table)
 foo()
 
 
-cur.execute('USE friendship')
+interface.execute('USE friendship')
 
 
-insert_into_table('platforms', cur, platforms_table)
-connection.commit()
+UserInterface.insert_into_table('platforms', interface, platforms_table)
+relay.commit()
 
-insert_many_tables(cur, 4, customers_table, suppliers_table, services_table, locations_table,
+UserInterface.insert_many_tables(interface, 4, customers_table, suppliers_table, services_table, locations_table,
                    'customers', 'suppliers', 'services', 'locations')
-connection.commit()
+relay.commit()
 
 
 foo()
 
-if supplier_trigger and service_trigger:
-    trigger_check(cur)
+if UserInterface.supplier_trigger and UserInterface.service_trigger:
+    UserInterface.trigger_check(interface)
 
 
 tables = []
-cur.execute('SELECT * FROM platforms')
-tables.append(cur.fetchall())
-cur.execute('SELECT * FROM customers')
-tables.append(cur.fetchall())
-cur.execute('SELECT * FROM suppliers')
-tables.append(cur.fetchall())
-cur.execute('SELECT * FROM services')
-tables.append(cur.fetchall())
-cur.execute('SELECT * FROM locations')
-tables.append(cur.fetchall())
+interface.execute('SELECT * FROM platforms')
+tables.append(interface.fetchall())
+interface.execute('SELECT * FROM customers')
+tables.append(interface.fetchall())
+interface.execute('SELECT * FROM suppliers')
+tables.append(interface.fetchall())
+interface.execute('SELECT * FROM services')
+tables.append(interface.fetchall())
+interface.execute('SELECT * FROM locations')
+tables.append(interface.fetchall())
 for el in tables:
     print(el)
 
 foo()
 
-custom_rows = get_custom_rows(cur, 'suppliers', 'supplier_name', 'fsdfds', 'fsdfsf')
+custom_rows = UserInterface.get_custom_rows(interface, 'suppliers', 'supplier_name', 'fsdfds', 'fsdfsf')
 print(custom_rows)
 
 
-# join_custom_rows(cur, 'LEFT JOIN', 'suppliers', 'services', 'supplier_name', 'supplier_name',
-#                        ['supplier_id', 'supplier_name', 'supplier_details'])
+UserInterface.join_custom_rows(interface, 'LEFT JOIN', 'suppliers', 'services', 'supplier_name', 'supplier_name',
+                       ['supplier_id', 'supplier_name', 'supplier_details'])
+
+row = interface.fetchall()
+
+print(row)
+
+UserInterface.union_custom_rows(interface, "suppliers", "services", ['supplier_id', 'supplier_name', 'supplier_details'],
+                  ['service_code', 'service_name', 'supplier_name'], [], 'supplier_id')
+
+print(interface.fetchall())
 
 
-union_custom_rows(cur, "suppliers", "services", ['supplier_id', 'supplier_name', 'supplier_details'],
-                  ['service_code', 'service_name', 'services_details'], [], False)
-
-print(cur.fetchall())
-
-
-connection.close()
+relay.close()
 tunnel.close()
 
