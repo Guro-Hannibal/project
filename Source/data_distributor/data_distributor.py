@@ -1,7 +1,7 @@
 
 class Distributor:
 
-    def __distribute(self, rows, *args):
+    def distribute(self, rows, *args):
         i = 0
         for row in rows:
             args[i].append(row[0:4])
