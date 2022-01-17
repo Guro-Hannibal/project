@@ -1,7 +1,8 @@
 from realation_connector.some_connector import tunnel, sql_connect, sql_connect_error_catcher
 from data_puller.data_puller import get_rows, get_rows_count, get_custom_rows, get_table_names
 from data_distributor.data_distributor import distribute
-from data_pusher.data_pusher import insert_into_table, insert_many_tables
+from data_pusher.data_pusher import insert_into_table, insert_many_tables, trigger_check
+from time import perf_counter
 
 tunnel.start()
 
@@ -55,16 +56,14 @@ print(locations_table)
 foo()
 
 
+
+
 cur.execute('USE friendship')
 
 global connection_database
 
-connection_database = True
 
-global supplier_trigger
-
-global service_trigger
-
+trigger_check(cur)
 
 insert_into_table('platforms', cur, platforms_table)
 connection.commit()
