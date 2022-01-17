@@ -1,4 +1,4 @@
-from realation_connector.some_connector import tunnel, sql_connect, sql_connect_error_catcher
+from relation_connector.relation_connector import tunnel, sql_connect, sql_connect_error_catcher
 from data_puller.data_puller import get_rows, get_rows_count, get_custom_rows, get_table_names, join_custom_rows
 from data_distributor.data_distributor import distribute
 from data_pusher.data_pusher import insert_into_table, insert_many_tables, trigger_check
