@@ -1,10 +1,11 @@
-global supplier_trigger, service_trigger, suppliers_last_push, services_last_push
-
-
 class DataPusher:
-    __supplier_trigger = False
 
-    __service_trigger = False
+
+
+
+    supplier_trigger = False
+
+    service_trigger = False
 
     def __insert_into_table(self, table_name, cursor, data):
         if table_name == 'platforms':
@@ -13,13 +14,13 @@ class DataPusher:
             )
         elif table_name == 'suppliers':
             supplier_trigger = True
-            suppliers_last_push = data
+            __suppliers_last_push = data
             sql_str = (
                 "INSERT INTO suppliers (supplier_id, supplier_name, supplier_details) VALUES(%s, %s, %s)"
             )
         elif table_name == 'services':
             services_trigger = True
-            services_last_push = data
+            __services_last_push = data
             sql_str = (
                     "INSERT INTO services (service_code, service_name, supplier_name) VALUES(%s, %s, %s)"
                 )
@@ -45,7 +46,7 @@ class DataPusher:
         table_name = 'suppliers_service_join'
         data = []
         if supplier_trigger and service_trigger:
-            for row, elem in services_last_push, suppliers_last_push:
+            for row, elem in __services_last_push, __suppliers_last_push:
                 service_id = row[0]
                 supplier_id = elem[0]
                 service_name = row[1]
