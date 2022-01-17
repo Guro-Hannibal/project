@@ -1,8 +1,9 @@
-global supplier_trigger, service_trigger
+global supplier_trigger, service_trigger, suppliers_last_push, services_last_push
 
-suppliers_last_push = None
+supplier_trigger = False
 
-services_last_push = None
+service_trigger = False
+
 
 def insert_into_table(table_name, cursor, data):
     if table_name == 'platforms':
@@ -19,7 +20,7 @@ def insert_into_table(table_name, cursor, data):
         services_trigger = 1
         services_last_push = data
         sql_str = (
-                "INSERT INTO services (service_code, service_name, service_details) VALUES(%s, %s, %s)"
+                "INSERT INTO services (service_code, service_name, supplier_name) VALUES(%s, %s, %s)"
             )
     elif table_name == 'locations':
         sql_str = (
@@ -44,12 +45,12 @@ def insert_many_tables(cursor, count, *args):
 def trigger_check(cursor):
     table_name = 'suppliers_service_join'
     data = []
-    for row, elem in services_last_push, suppliers_last_push:
-        service_id = row[0]
-        supplier_id = elem[0]
-        service_name = row[1]
-        supplier_name = elem[1]
-        data.append((service_id, supplier_id, service_name, supplier_name))
-    print(data)
-    if supplier_trigger == 1 and service_trigger == 1:
+    if supplier_trigger and service_trigger:
+        for row, elem in services_last_push, suppliers_last_push:
+            service_id = row[0]
+            supplier_id = elem[0]
+            service_name = row[1]
+            supplier_name = elem[1]
+            data.append((service_id, supplier_id, service_name, supplier_name))
+        print(data)
         insert_into_table(table_name, cursor, data)
