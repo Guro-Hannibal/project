@@ -157,8 +157,8 @@ ALTER TABLE suppliers_services_join ADD (
 	FOREIGN KEY (supplier_id) REFERENCES suppliers(supplier_id) ON UPDATE CASCADE
 );
 
-ALTER TABLE services ADD (
-	FOREIGN KEY (service_code) REFERENCES suppliers_services_join(service_code) ON UPDATE CASCADE
+ALTER TABLE suppliers_services_join ADD (
+	FOREIGN KEY (service_code) REFERENCES services(service_code) ON UPDATE CASCADE
 );
 
 ALTER TABLE apps ADD (
