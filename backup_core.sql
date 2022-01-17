@@ -4,133 +4,169 @@ CREATE DATABASE friendship;
 USE friendship;
 
 CREATE TABLE events (
-	event_id BIGINT UNSIGNED ,
-	artefact_id BIGINT UNSIGNED,
-	channel_id	BIGINT UNSIGNED,
-	customer_id BIGINT UNSIGNED,
-	event_sequence_id BIGINT,
-	location_id	BIGINT UNSIGNED ,
-	platform_id BIGINT UNSIGNED,
-	service_code BIGINT UNSIGNED,
-	staff_id BIGINT UNSIGNED ,
-	event_amount BIGINT UNSIGNED,
-	event_date_time DATETIME,
-	booking_date_from DATETIME,
-	booking_date_to DATETIME,
+	event_id INT UNSIGNED NOT NULL,
+	artefact_id INT UNSIGNED NOT NULL,
+	channel_id	INT UNSIGNED NOT NULL,
+	customer_id INT UNSIGNED NOT NULL,
+	event_sequence_id INT UNSIGNED NOT NULL,
+	location_id	INT UNSIGNED NOT NULL,
+	platform_id INT UNSIGNED NOT NULL,
+	service_code INT UNSIGNED NOT NULL,
+	staff_id INT UNSIGNED NOT NULL,
+	event_amount INT UNSIGNED NOT NULL,
+	event_date_time DATETIME NOT NULL,
+	booking_date_from DATETIME NOT NULL,
+	booking_date_to DATETIME NOT NULL,
 	other_details VARCHAR(255)
 );
 
 CREATE TABLE suppliers_services_join(
-	service_code BIGINT UNSIGNED NOT NULL PRIMARY KEY,
-	supplier_id BIGINT UNSIGNED DEFAULT NULL,
-	service_name VARCHAR(255) DEFAULT NULL,
-	supplier_name VARCHAR(255) DEFAULT NULL
--- 	FOREIGN KEY (supplier_id) REFERENCES suppliers(supplier_id) ON UPDATE CASCADE
+	service_code INT UNSIGNED NOT NULL PRIMARY KEY,
+	supplier_id INT UNSIGNED NOT NULL,
+	service_name VARCHAR(30),
+	supplier_name VARCHAR(30)
 );
 
 CREATE TABLE event_sequences(
-	event_sequence_id BIGINT UNSIGNED NOT NULL PRIMARY KEY,
-	next_event_sequence_id BIGINT UNSIGNED,
-	event_code CHAR(20),
+	event_sequence_id INT UNSIGNED NOT NULL PRIMARY KEY,
+	next_event_sequence_id INT UNSIGNED NOT NULL,
+	event_code SMALLINT,
 	event_time DATETIME,
-	event_details VARCHAR(255),
+	event_details TINYTEXT,
 	event_source_file TEXT,
-	event_source_variables VARCHAR(255)
+	event_source_variables VARCHAR(60)
 );
 
 CREATE TABLE channels(
-	channel_id BIGINT UNSIGNED NOT NULL UNIQUE PRIMARY KEY,
-	channel_name VARCHAR(255),
-	channel_details VARCHAR(255)
+	channel_id INT UNSIGNED NOT NULL PRIMARY KEY,
+	channel_name VARCHAR(30),
+	channel_details TINYTEXT
 );
 
 CREATE TABLE staff(
-	staff_id BIGINT UNSIGNED NOT NULL UNIQUE PRIMARY KEY,
-	staff_name VARCHAR(255),
-	staff_details VARCHAR(255)
+	staff_id INT UNSIGNED NOT NULL PRIMARY KEY,
+	staff_name VARCHAR(30),
+	staff_details TINYTEXT
 );
 
 CREATE TABLE artefacts(
-	artefact_id BIGINT UNSIGNED NOT NULL UNIQUE PRIMARY KEY,
-	artefact_name VARCHAR(255),
-	artefact_details VARCHAR(255)
+	artefact_id INT UNSIGNED NOT NULL PRIMARY KEY,
+	artefact_name VARCHAR(40),
+	artefact_details TINYTEXT
 );
 
 # secondary source table
 
 CREATE TABLE locations (
-	location_id BIGINT UNSIGNED NOT NULL UNIQUE PRIMARY KEY,
-	location_name VARCHAR(255),
-	location_details VARCHAR(255)
+	location_id INT UNSIGNED  NOT NULL PRIMARY KEY,
+	location_name VARCHAR(15),
+	location_details TINYTEXT
 );
 
 CREATE TABLE platforms(
-	platform_id BIGINT UNSIGNED PRIMARY KEY,
-	platform_name VARCHAR(255),
-	platform_details VARCHAR(255),
-	acces_variables VARCHAR(255)
+	platform_id INT UNSIGNED NOT NULL PRIMARY KEY,
+	platform_name VARCHAR(10),
+	platform_details TINYTEXT,
+	acces_variables VARCHAR(10)
 );
 
 CREATE TABLE apps (
-	app_code BIGINT UNSIGNED NOT NULL UNIQUE PRIMARY KEY,
-	event_id BIGINT UNSIGNED,
-	app_source_vars JSON,
-	app_dialog JSON,
+	app_code INT UNSIGNED NOT NULL UNIQUE PRIMARY KEY,
+	event_id INT UNSIGNED,
+	app_source_vars TINYTEXT,
+	app_dialog TINYTEXT,
 	data_clone LONGTEXT
 );
 
 CREATE TABLE info_types(
-	info_type_code CHAR(15) NOT NULL PRIMARY KEY,
-	info_type_description VARCHAR(255),
+	info_type_code CHAR(4) NOT NULL PRIMARY KEY,
+	info_type_description VARCHAR(100),
 	info_type_priority_id INT UNSIGNED UNIQUE
 );
 
 CREATE TABLE info(
-	info_id BIGINT UNSIGNED NOT NULL UNIQUE PRIMARY KEY,
-	event_id BIGINT UNSIGNED NOT NULL,
-	info_type_code CHAR(15) NOT NULL,
-	info_timeline JSON,
-	info_loc_history JSON,
-	info_details VARCHAR(255)
-);
-
-
-CREATE TABLE customers_data_platforms (
-	platform_id CHAR(20) NOT NULL PRIMARY KEY,
-	customer_name VARCHAR(255),
-	plarform_details VARCHAR(255)
+	info_id INT UNSIGNED NOT NULL UNIQUE PRIMARY KEY,
+	event_id INT UNSIGNED NOT NULL,
+	info_type_code CHAR(4) NOT NULL,
+	info_timeline TINYTEXT,
+	info_loc_history TINYTEXT,
+	info_details VARCHAR(100)
 );
 
 CREATE TABLE customers (
-	customer_id BIGINT UNSIGNED NOT NULL UNIQUE PRIMARY KEY,
-	customer_name VARCHAR(255),
-	title CHAR(20),
-	gender CHAR(3),
-	customers_details VARCHAR(255)
+	customer_id INT UNSIGNED NOT NULL PRIMARY KEY,
+	customer_name VARCHAR(100) NOT NULL,
+	title CHAR(15),
+	gender CHAR(10),
+	customers_details VARCHAR(100)
 );
 
+CREATE TABLE customers_data_platforms (
+	platform_id INT UNSIGNED NOT NULL PRIMARY KEY,
+	customer_name VARCHAR(100) NOT NULL,
+	plarform_details VARCHAR(100)
+);
+
+
 CREATE TABLE suppliers (
-	supplier_id BIGINT UNSIGNED NOT NULL UNIQUE PRIMARY KEY,
-	supplier_name VARCHAR(255),
-	supplier_details VARCHAR(255)
+	supplier_id INT UNSIGNED NOT NULL PRIMARY KEY,
+	supplier_name VARCHAR(100) NOT NULL,
+	supplier_details VARCHAR(100)
 );
 
 CREATE TABLE services (
-	service_code BIGINT NOT NULL UNIQUE PRIMARY KEY,
-	service_name VARCHAR(255),
-	supplier_name VARCHAR(255)
+	service_code INT UNSIGNED NOT NULL PRIMARY KEY,
+	service_name VARCHAR(14),
+	supplier_name VARCHAR(15)
 );
 
-ALTER TABLE events (
-	FOREIGN KEY (location_id) REFERENCES events(location_id) ON UPDATE CASCADE,
-	FOREIGN KEY (event_id) REFERENCES events(event_sequence_id) ON UPDATE CASCADE,
-	FOREIGN KEY (artefact_id) REFERENCES e(artefact_id) ON UPDATE CASCADE,
-	FOREIGN KEY (customer_id) REFERENCES customers(customer_id) ON UPDATE CASCADE,
-	FOREIGN KEY (platform_id) REFERENCES platforms(platform_id) ON UPDATE CASCADE,
-	FOREIGN KEY (channel_id) REFERENCES channels(channel_id) ON UPDATE CASCADE,
-	FOREIGN KEY (staff_id) REFERENCES staff(staff_id) ON UPDATE CASCADE
+	
+
+
+-- 	FOREIGN KEY (platform_id) REFERENCES platforms(platform_id) ON UPDATE CASCADE,
+
+
+-- );
+-- -- 
+-- ALTER TABLE customers (
+
+-- );
+
+ALTER TABLE events ADD (
+	FOREIGN KEY (event_id) REFERENCES staff(staff_id) ON UPDATE CASCADE,
+	FOREIGN KEY (event_id) REFERENCES channels(channel_id) ON UPDATE CASCADE,
+	FOREIGN KEY (event_id) REFERENCES customers(customer_id) ON UPDATE CASCADE,
+	FOREIGN KEY (event_id) REFERENCES artefacts(artefact_id) ON UPDATE CASCADE,
+	FOREIGN KEY (event_id) REFERENCES platforms(platform_id) ON UPDATE CASCADE,
+	FOREIGN KEY (event_id) REFERENCES locations(location_id) ON UPDATE CASCADE,
+	FOREIGN KEY (event_id) REFERENCES suppliers_services_join(service_code) ON UPDATE CASCADE,
+	FOREIGN KEY (event_id) REFERENCES event_sequences(event_sequence_id) ON UPDATE CASCADE,
+	FOREIGN KEY (event_id) REFERENCES event_sequences(event_sequence_id) ON UPDATE CASCADE
 );
 
-ALTER TABLE customers (
-	FOREIGN KEY (customer_name) REFERENCES customers_data_platforms(platform_id) ON UPDATE CASCADE
+-- ALTER TABLE customers ADD (
+-- 	FOREIGN KEY (customer_name) REFERENCES customers_and_platforms PRIMARY KEY
+-- );
+
+
+ALTER TABLE event_sequences ADD (
+	FOREIGN KEY (next_event_sequence_id) REFERENCES event_sequences(event_sequence_id) ON UPDATE CASCADE
 );
+
+ALTER TABLE suppliers_services_join ADD (
+	FOREIGN KEY (supplier_id) REFERENCES suppliers(supplier_id) ON UPDATE CASCADE
+);
+
+ALTER TABLE services ADD (
+	FOREIGN KEY (service_code) REFERENCES suppliers_services_join(service_code) ON UPDATE CASCADE
+);
+
+ALTER TABLE apps ADD (
+	FOREIGN KEY (event_id) REFERENCES events(event_id) ON UPDATE CASCADE
+);
+
+ALTER TABLE info ADD (
+	FOREIGN KEY (info_id) REFERENCES events(event_id) ON UPDATE CASCADE,
+	FOREIGN KEY (info_type_code) REFERENCES info_types(info_type_code) ON UPDATE CASCADE
+);
+
