@@ -57,6 +57,15 @@ foo()
 
 cur.execute('USE friendship')
 
+global connection_database
+
+connection_database = True
+
+global supplier_trigger
+
+global service_trigger
+
+
 insert_into_table('platforms', cur, platforms_table)
 connection.commit()
 
@@ -86,6 +95,7 @@ foo()
 
 custom_rows = get_custom_rows(cur, 'suppliers', 'supplier_name', 'fsdfds', 'fsdfsf')
 print(custom_rows)
+
 
 connection.close()
 tunnel.close()
