@@ -7,7 +7,7 @@ class DataPusher:
 
     service_trigger = False
 
-    def __insert_into_table(self, table_name, cursor, data):
+    def insert_into_table(self, table_name, cursor, data):
         if table_name == 'platforms':
             sql_str = (
                 "INSERT INTO platforms (platform_id, platform_name, platform_details, acces_variables) VALUES(%s, %s, %s, %s)"
@@ -36,13 +36,13 @@ class DataPusher:
             return print('Not enough data: table_name doesnt much')
         cursor.executemany(sql_str, data)
 
-    def __insert_many_tables(self, cursor, count, *args):
+    def insert_many_tables(self, cursor, count, *args):
         for el in args[:count]:
             print(args[count])
-            self.__insert_into_table(args[count], cursor, el)
+            self.insert_into_table(args[count], cursor, el)
             count += 1
 
-    def __trigger_check(self, cursor):
+    def trigger_check(self, cursor):
         table_name = 'suppliers_service_join'
         data = []
         if supplier_trigger and service_trigger:
@@ -52,5 +52,5 @@ class DataPusher:
                 service_name = row[1]
                 supplier_name = elem[1]
                 data.append((service_id, supplier_id, service_name, supplier_name))
-            self.__insert_into_table(table_name, cursor, data)
+            self.insert_into_table(table_name, cursor, data)
 
