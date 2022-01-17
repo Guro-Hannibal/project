@@ -1,22 +1,22 @@
 
 class DataPuller:
 
-    def __get_rows_count(self, table_name, cursor):
+    def get_rows_count(self, table_name, cursor):
         cursor.execute(f'SELECT COUNT(*) FROM {table_name}')
         tuple_result = cursor.fetchone()
         return int(tuple_result[0])
 
-    def __get_rows(self, table_name, cursor, count):
+    def get_rows(self, table_name, cursor, count):
         cursor.execute(f'SELECT * FROM {table_name}')
         tuple_result = cursor.fetchall()
         return tuple_result
 
-    def __get_table_names(self, cursor):
+    def get_table_names(self, cursor):
         cursor.execute('SHOW TABLES')
         return cursor.fetchall()
 
-    def __get_custom_rows(self, cursor, table_name, condition, *args):
-        __count = self.__get_rows_count(table_name, cursor)
+    def get_custom_rows(self, cursor, table_name, condition, *args):
+        __count = self.get_rows_count(table_name, cursor)
         result_rows = []
         for el in args:
             sql_str = (
@@ -26,7 +26,7 @@ class DataPuller:
             result_rows.append(cursor.fetchall())
         return result_rows
 
-    def __join_custom_rows(self, cursor, join_type, join_table, joiner_table, condition, second_condition, list_of_args):
+    def join_custom_rows(self, cursor, join_type, join_table, joiner_table, condition, second_condition, list_of_args):
         sql_str = f"SELECT "
         for num, el in enumerate(list_of_args):
             if num >= len(list_of_args) - 1:
@@ -41,7 +41,7 @@ class DataPuller:
         print()
         return cursor.execute(result_sql_str)
 
-    def __union_custom_rows(self, cursor, union_table, unioner_table, args_list, atr_list, conditions_list, order = False):
+    def union_custom_rows(self, cursor, union_table, unioner_table, args_list, atr_list, conditions_list, order = False):
         sql_str_top = f"SELECT "
         sql_str_bottom = f"SELECT "
         sql_str_universal = ''
