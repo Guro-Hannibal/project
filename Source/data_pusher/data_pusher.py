@@ -1,5 +1,4 @@
-from ..core import supplier_trigger, service_trigger, connection_database
-from time import sleep
+global supplier_trigger, service_trigger
 
 suppliers_last_push = None
 
@@ -43,8 +42,6 @@ def insert_many_tables(cursor, count, *args):
 
 
 def trigger_check(cursor):
-    if not connection_database:
-        return
     table_name = 'suppliers_service_join'
     data = []
     for row, elem in services_last_push, suppliers_last_push:
@@ -56,6 +53,3 @@ def trigger_check(cursor):
     print(data)
     if supplier_trigger == 1 and service_trigger == 1:
         insert_into_table(table_name, cursor, data)
-    while connection_database:
-        sleep(60)
-        trigger_check()
