@@ -8,7 +8,7 @@ tunnel = sshtunnel.SSHTunnelForwarder(
     ssh_port=22,
     remote_bind_address=('127.0.0.1', 3306)
 )
-
+tunnel.start()
 
 def sql_connect():
     connection = connect(
