@@ -8,7 +8,7 @@ tunnel.start()
 
 relay, interface = sql_connect_error_catcher(sql_connect())
 
-relay.commit()
+
 
 
 class __Core:
@@ -20,14 +20,15 @@ class __Core:
         self.relay = relay
 
 
-class __UI__ (__Core, DataPusher, DataPuller, Distributor):
 
-        def __init__(self, interface):
-          
-            self.console = interface
+class __UI__(__Core, DataPusher, DataPuller, Distributor):
 
-
-UserInterface = __UI__(interface)
+    def __init__(self, source_database, friendship_project, relay, interface):
+        super().__init__(source_database, friendship_project, relay, interface)
+        self.source_database = source_database
+        self.friendship_project = friendship_project
+        self.inner = interface
+        self.relay = relay
 
 
 
