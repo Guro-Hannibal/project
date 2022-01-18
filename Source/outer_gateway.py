@@ -1,22 +1,15 @@
-import importlib
 from tkinter import *
-
-from core import UserInterface
 
 root = Tk()
 root.title("GIVE ME MORE LOVE")
 
-
-
 root.geometry("600x600")
 
 
-list = []
+def foo(console):
 
-def foo():
-
-    print(UserInterface.insert_into_table('services', UserInterface.console,
-                                    [atr_frist.get(), atr_sec.get(), atr_third.get(), atr_forth.get()]))
+    print(console.insert_into_table('services', console.inner,
+                                    [atr_first.get(), atr_sec.get(), atr_third.get(), atr_forth.get()]))
 
 
 atr_first = Entry(root, width=50)
@@ -41,8 +34,6 @@ atr_fo7.grid(row=15, column=1)
 
 send = Button(root, text='send more data, even more data!')
 send.grid(row=60, column=60, columnspan=60, pady=10, padx=10, ipadx=10)
-
-
 
 root.mainloop()
 
