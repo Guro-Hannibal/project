@@ -1,9 +1,10 @@
 import outer_gateway
+import core
+
+terminal = core.console()
 
 
-console = core.UI('source_database', 'friendship', core.relay, core.interface)
 
-
-outer_gateway.foo(console.interface())
+outer_gateway.submit()
 
 
