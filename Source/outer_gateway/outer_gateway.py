@@ -1,9 +1,11 @@
 from tkinter import *
 
+
+
 root = Tk()
 root.title("2.24")
 
-root.geometry("1200x900")
+root.geometry("1200x1200")
 
 
 
@@ -72,6 +74,45 @@ arg_f6 = Label(root, text='Note to myself, need more sex')
 arg_f6.grid(row=10, column=12)
 arg_fo7 = Label(root, text='and finish this project')
 arg_fo7.grid(row=15, column=12)
+
+el_first = Entry(root, width=50)
+el_first.grid(row=42, column=11)
+el_sec = Entry(root, width=50)
+el_sec.grid(row=44, column=11)
+el_third = Entry(root, width=50)
+el_third.grid(row=46, column=11)
+el_forth = Entry(root, width=50)
+el_forth.grid(row=48, column=11)
+
+
+el_f1 = Label(root, text='Come to me')
+el_f1.grid(row=41, column=11)
+el_f3 = Label(root, text='Be initiative already')
+el_f3.grid(row=43, column=11)
+el_f6 = Label(root, text='Note to myself, need more sex')
+el_f6.grid(row=45, column=11)
+el_fo7 = Label(root, text='and finish this project')
+el_fo7.grid(row=47, column=11)
+
+
+item_first = Entry(root, width=50)
+item_first.grid(row=42, column=24)
+item_sec = Entry(root, width=50)
+item_sec.grid(row=44, column=24)
+item_third = Entry(root, width=50)
+item_third.grid(row=46, column=24)
+item_forth = Entry(root, width=50)
+item_forth.grid(row=48, column=24)
+
+
+item_f1 = Label(root, text='Come to me')
+item_f1.grid(row=41, column=24)
+item_f3 = Label(root, text='Be initiative already')
+item_f3.grid(row=43, column=24)
+item_f6 = Label(root, text='Note to myself, need more sex')
+item_f6.grid(row=45, column=24)
+item_fo7 = Label(root, text='and finish this project')
+item_fo7.grid(row=47, column=24)
 
 
 send = Button(root, text='send more data, even more data!')
