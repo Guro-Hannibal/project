@@ -20,7 +20,7 @@ class Core:
         self.relay = relay
 
 
-class UI(__Core, DataPusher, DataPuller, Distributor):
+class UI(Core, DataPusher, DataPuller, Distributor):
 
     def __init__(self, source_database, friendship_project, relay, interface):
         super().__init__(source_database, friendship_project, relay, interface)
