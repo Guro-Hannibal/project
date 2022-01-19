@@ -1,15 +1,19 @@
 from tkinter import *
 
 root = Tk()
-root.title("GIVE ME MORE LOVE")
+root.title("2.24")
 
 root.geometry("600x600")
 
 
-def foo(console):
 
-    print(console.insert_into_table('services', console.inner,
-                                    [atr_first.get(), atr_sec.get(), atr_third.get(), atr_forth.get()]))
+def submit():
+    atr_first.delete(0, END)
+    atr_sec.delete(0, END)
+    atr_third.delete(0, END)
+    atr_forth.delete(0, END)
+
+
 
 
 atr_first = Entry(root, width=50)
@@ -30,6 +34,8 @@ atr_f6 = Label(root, text='Note to myself, need more sex')
 atr_f6.grid(row=10, column=1)
 atr_fo7 = Label(root, text='and finish this project')
 atr_fo7.grid(row=15, column=1)
+
+
 
 
 send = Button(root, text='send more data, even more data!')
