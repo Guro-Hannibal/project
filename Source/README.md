@@ -6,3 +6,4 @@ Needed 2 source packages sshtunnel and mysqlconnector.
 pip install sshtunnel
 pip install mysql-connector-python
 made programm object oriented, not fully but nearly
+now it will be new window tool for pushing, pulling with sqlite3
