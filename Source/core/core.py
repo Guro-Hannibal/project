@@ -11,7 +11,7 @@ relay, interface = sql_connect_error_catcher(sql_connect())
 
 
 
-class __Core:
+class Core:
 
     def __init__(self, source_database, friendship_project, relay, interface):
         self.source_database = source_database
@@ -20,8 +20,7 @@ class __Core:
         self.relay = relay
 
 
-
-class __UI__(__Core, DataPusher, DataPuller, Distributor):
+class UI(__Core, DataPusher, DataPuller, Distributor):
 
     def __init__(self, source_database, friendship_project, relay, interface):
         super().__init__(source_database, friendship_project, relay, interface)
@@ -31,6 +30,7 @@ class __UI__(__Core, DataPusher, DataPuller, Distributor):
         self.relay = relay
 
 
+console = UI('source_database', 'friendship', relay, interface)
 
 
 # with open('core.sql', 'r') as data:
@@ -45,7 +45,7 @@ row = interface.fetchone()
 
 print(f"Date - {row}")
 
-row = UserInterface.get_table_names(interface)
+row = console.get_table_names(interface)
 print(row)
 
 
@@ -63,10 +63,10 @@ for el in row:
 foo()
 
 
-print(UserInterface.get_rows_count('sys', interface))
+print(console.get_rows_count('sys', interface))
 
 
-tables_rows = UserInterface.get_rows('sys', interface, UserInterface.get_rows_count('sys', interface))
+tables_rows = console.get_rows('sys', interface, console.get_rows_count('sys', interface))
 
 platforms_table = []
 customers_table = []
@@ -74,7 +74,7 @@ suppliers_table = []
 services_table = []
 locations_table = []
 
-UserInterface.distribute(tables_rows, platforms_table, customers_table, suppliers_table, services_table, locations_table)
+console.distribute(tables_rows, platforms_table, customers_table, suppliers_table, services_table, locations_table)
 
 print(platforms_table)
 print(customers_table)
@@ -89,18 +89,18 @@ foo()
 interface.execute('USE friendship')
 
 
-UserInterface.insert_into_table('platforms', interface, platforms_table)
+console.insert_into_table('platforms', interface, platforms_table)
 relay.commit()
 
-UserInterface.insert_many_tables(interface, 4, customers_table, suppliers_table, services_table, locations_table,
+console.insert_many_tables(interface, 4, customers_table, suppliers_table, services_table, locations_table,
                    'customers', 'suppliers', 'services', 'locations')
 relay.commit()
 
 
 foo()
 
-if UserInterface.supplier_trigger and UserInterface.service_trigger:
-    UserInterface.trigger_check(interface)
+if console.supplier_trigger and console.service_trigger:
+    console.trigger_check(interface)
 
 
 tables = []
@@ -119,18 +119,18 @@ for el in tables:
 
 foo()
 
-custom_rows = UserInterface.get_custom_rows(interface, 'suppliers', 'supplier_name', 'fsdfds', 'fsdfsf')
+custom_rows = console.get_custom_rows(interface, 'suppliers', 'supplier_name', 'fsdfds', 'fsdfsf')
 print(custom_rows)
 
 
-UserInterface.join_custom_rows(interface, 'LEFT JOIN', 'suppliers', 'services', 'supplier_name', 'supplier_name',
+console.join_custom_rows(interface, 'LEFT JOIN', 'suppliers', 'services', 'supplier_name', 'supplier_name',
                        ['supplier_id', 'supplier_name', 'supplier_details'])
 
 row = interface.fetchall()
 
 print(row)
 
-UserInterface.union_custom_rows(interface, "suppliers", "services", ['supplier_id', 'supplier_name', 'supplier_details'],
+console.union_custom_rows(interface, "suppliers", "services", ['supplier_id', 'supplier_name', 'supplier_details'],
                   ['service_code', 'service_name', 'supplier_name'], [], 'supplier_id')
 
 print(interface.fetchall())
