@@ -5,8 +5,9 @@ from data_pusher import DataPusher
 
 tunnel.start()
 
+a, b = sql_connect_error_catcher(sql_connect())
 
-relay, interface = sql_connect_error_catcher(sql_connect())
+relay, interface = a, b
 
 
 
