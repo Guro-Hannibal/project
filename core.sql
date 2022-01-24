@@ -104,7 +104,7 @@ CREATE TABLE customers (
 CREATE TABLE customers_data_platforms (
 	platform_id INT UNSIGNED NOT NULL PRIMARY KEY,
 	customer_name VARCHAR(100) NOT NULL,
-	plarform_details VARCHAR(100)
+	platform_details VARCHAR(100)
 );
 
 
@@ -123,9 +123,7 @@ CREATE TABLE services (
 	
 
 
--- 	FOREIGN KEY (platform_id) REFERENCES platforms(platform_id) ON UPDATE CASCADE,
-
-
+-- 	FOREIGN KEY (platform_id) REFERENCES platforms(platform_id),
 -- );
 -- -- 
 -- ALTER TABLE customers (
@@ -133,15 +131,15 @@ CREATE TABLE services (
 -- );
 
 ALTER TABLE events ADD (
-	FOREIGN KEY (event_id) REFERENCES staff(staff_id) ON UPDATE CASCADE,
-	FOREIGN KEY (event_id) REFERENCES channels(channel_id) ON UPDATE CASCADE,
-	FOREIGN KEY (event_id) REFERENCES customers(customer_id) ON UPDATE CASCADE,
-	FOREIGN KEY (event_id) REFERENCES artefacts(artefact_id) ON UPDATE CASCADE,
-	FOREIGN KEY (event_id) REFERENCES platforms(platform_id) ON UPDATE CASCADE,
-	FOREIGN KEY (event_id) REFERENCES locations(location_id) ON UPDATE CASCADE,
-	FOREIGN KEY (event_id) REFERENCES suppliers_services_join(service_code) ON UPDATE CASCADE,
-	FOREIGN KEY (event_id) REFERENCES event_sequences(event_sequence_id) ON UPDATE CASCADE,
-	FOREIGN KEY (event_id) REFERENCES event_sequences(event_sequence_id) ON UPDATE CASCADE
+	FOREIGN KEY (event_id) REFERENCES staff(staff_id),
+	FOREIGN KEY (event_id) REFERENCES channels(channel_id),
+	FOREIGN KEY (event_id) REFERENCES customers(customer_id),
+	FOREIGN KEY (event_id) REFERENCES artefacts(artefact_id),
+	FOREIGN KEY (event_id) REFERENCES platforms(platform_id),
+	FOREIGN KEY (event_id) REFERENCES locations(location_id),
+	FOREIGN KEY (event_id) REFERENCES suppliers_services_join(service_code),
+	FOREIGN KEY (event_id) REFERENCES customers_data_platforms(platform_id),
+	FOREIGN KEY (event_id) REFERENCES event_sequences(event_sequence_id)
 );
 
 -- ALTER TABLE customers ADD (
@@ -150,23 +148,22 @@ ALTER TABLE events ADD (
 
 
 ALTER TABLE event_sequences ADD (
-	FOREIGN KEY (next_event_sequence_id) REFERENCES event_sequences(event_sequence_id) ON UPDATE CASCADE
+	FOREIGN KEY (next_event_sequence_id) REFERENCES event_sequences(event_sequence_id)
 );
 
 ALTER TABLE suppliers_services_join ADD (
-	FOREIGN KEY (supplier_id) REFERENCES suppliers(supplier_id) ON UPDATE CASCADE
+	FOREIGN KEY (supplier_id) REFERENCES suppliers(supplier_id)
 );
 
 ALTER TABLE suppliers_services_join ADD (
-	FOREIGN KEY (service_code) REFERENCES services(service_code) ON UPDATE CASCADE
+	FOREIGN KEY (service_code) REFERENCES services(service_code)
 );
 
 ALTER TABLE apps ADD (
-	FOREIGN KEY (event_id) REFERENCES events(event_id) ON UPDATE CASCADE
+	FOREIGN KEY (event_id) REFERENCES events(event_id)
 );
 
 ALTER TABLE info ADD (
-	FOREIGN KEY (info_id) REFERENCES events(event_id) ON UPDATE CASCADE,
-	FOREIGN KEY (info_type_code) REFERENCES info_types(info_type_code) ON UPDATE CASCADE
+	FOREIGN KEY (info_id) REFERENCES events(event_id),
+	FOREIGN KEY (info_type_code) REFERENCES info_types(info_type_code)
 );
-
