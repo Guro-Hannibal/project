@@ -3,9 +3,9 @@ import mysql.connector
 import sshtunnel
 
 tunnel = sshtunnel.SSHTunnelForwarder(
-        ssh_username='ag3131',
-        ssh_password='GoForthGo',
-        ssh_address_or_host='192.168.0.66',
+        ssh_username='placeholder',
+        ssh_password='placeholder',
+        ssh_address_or_host='placeholder',
         ssh_port=22,
         remote_bind_address=('127.0.0.1', 3306)
 )
