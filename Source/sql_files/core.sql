@@ -140,7 +140,7 @@ ALTER TABLE events ADD (
 	FOREIGN KEY (event_id) REFERENCES platforms(platform_id) ON UPDATE CASCADE,
 	FOREIGN KEY (event_id) REFERENCES locations(location_id) ON UPDATE CASCADE,
 	FOREIGN KEY (event_id) REFERENCES suppliers_services_join(service_code) ON UPDATE CASCADE,
-	FOREIGN KEY (event_id) REFERENCES event_sequences(event_sequence_id) ON UPDATE CASCADE,
+	FOREIGN KEY (event_id) REFERENCES customers_data_platforms(platform_id) ON UPDATE CASCADE,
 	FOREIGN KEY (event_id) REFERENCES event_sequences(event_sequence_id) ON UPDATE CASCADE
 );
 
@@ -169,4 +169,3 @@ ALTER TABLE info ADD (
 	FOREIGN KEY (info_id) REFERENCES events(event_id) ON UPDATE CASCADE,
 	FOREIGN KEY (info_type_code) REFERENCES info_types(info_type_code) ON UPDATE CASCADE
 );
-
